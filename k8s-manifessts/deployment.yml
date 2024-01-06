@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-app
+  name: nodejs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+      - image: docker.io/library/nodejs-app:0.1.0
+        name: nodejs-app
+        ports:
+        - containerPort: 4000
+        envFrom:
+        - configMapRef:
+            name: env-vars
